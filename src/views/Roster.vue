@@ -1,40 +1,28 @@
 <template>
   <div class="roster">
     <img alt="Vue logo" src="../assets/logo.png" />
+    <roster-table ref="table"></roster-table>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import RosterTable from "@/components/parts/RosterTable.vue";
 
-@Component
+@Component({ components: { RosterTable } })
 export default class Roster extends Vue {
   private targetMonth: Date = new Date();
   private workRecord: [] = [];
+  private get refs(): any {
+    return this.$refs;
+  }
 
   private get target() {
     return this.targetMonth !== null ? this.targetMonth : new Date();
   }
 
   private mounted() {
-    console.log(this.target);
-    const d = this.target;
-
-    const firstDate = this.getFirstDay(d);
-    const lastDate = this.getLastDay(d);
-    console.log(firstDate);
-    console.log(lastDate);
-  }
-
-  private getFirstDay(src: Date) {
-    return new Date(src.getFullYear(), src.getMonth(), 1);
-  }
-
-  private getLastDay(src: Date) {
-    const nextMonth = new Date(src);
-    nextMonth.setMonth(src.getMonth() + 1);
-    nextMonth.setDate(0);
-    return nextMonth;
+    this.refs.table.selectTartgetMonth(new Date());
   }
 }
 </script>
