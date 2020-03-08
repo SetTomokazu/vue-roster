@@ -40,17 +40,47 @@
         </el-time-picker>
       </template>
     </el-table-column>
-    <el-table-column prop="workingHours" label="実作業時間" width="120">
+    <el-table-column
+      prop="workingHours"
+      label="実作業時間"
+      width="120"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
-    <el-table-column prop="overtimeHours" label="残業時間" width="100">
+    <el-table-column
+      prop="overtimeHours"
+      label="残業時間"
+      width="100"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
-    <el-table-column prop="holidayWorkingHours" label="休出時間" width="100">
+    <el-table-column
+      prop="holidayWorkingHours"
+      label="休出時間"
+      width="100"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
-    <el-table-column prop="holidayOvertimeHours" label="休出残業" width="100">
+    <el-table-column
+      prop="holidayOvertimeHours"
+      label="休出残業"
+      width="100"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
-    <el-table-column prop="overtimeHours" label="代休時間" width="100">
+    <el-table-column
+      prop="overtimeHours"
+      label="代休時間"
+      width="100"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
-    <el-table-column prop="overtimeHours" label="遅刻・早退" width="100">
+    <el-table-column
+      prop="overtimeHours"
+      label="遅刻・早退"
+      width="100"
+      :formatter="numberFormatter"
+    >
     </el-table-column>
     <el-table-column prop="remarks" label="備考">
       <template slot-scope="scope">
@@ -135,6 +165,14 @@ export default class RosterTable extends Vue {
     });
 
     return sums;
+  }
+  public numberFormatter(
+    row: RosterRecord,
+    column: TableColumn,
+    cellValue: number,
+    index: number
+  ): number {
+    return Math.round(cellValue * 100) / 100;
   }
 }
 </script>
