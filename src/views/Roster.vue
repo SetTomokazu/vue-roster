@@ -1,6 +1,5 @@
 <template>
   <div class="roster">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <roster-table ref="table"></roster-table>
   </div>
 </template>
