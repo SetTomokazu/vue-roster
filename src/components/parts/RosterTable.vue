@@ -10,7 +10,7 @@
     <el-table-column prop="date" label="日" width="50"> </el-table-column>
     <el-table-column prop="day" label="曜日" width="50" :formatter="getWeek">
     </el-table-column>
-    <el-table-column prop="start" label="勤務時間" width="230">
+    <el-table-column prop="start" label="勤務時間" width="245">
       <template slot-scope="scope">
         <el-time-picker
           v-model="scope.row.start"
@@ -25,7 +25,7 @@
         </el-time-picker>
       </template>
     </el-table-column>
-    <el-table-column prop="end" label="退社時間" width="230">
+    <el-table-column prop="end" label="退社時間" width="245">
       <template slot-scope="scope">
         <el-time-picker
           v-model="scope.row.end"
