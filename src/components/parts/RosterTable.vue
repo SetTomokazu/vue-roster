@@ -18,6 +18,7 @@
           :picker-options="{
             selectableRange: '00:00:00 - 23:59:00'
           }"
+          format="HH:mm"
           placeholder="Arbitrary time"
           @change="scope.row.calcHours"
         >
@@ -32,6 +33,7 @@
           :picker-options="{
             selectableRange: '00:00:00 - 23:59:00'
           }"
+          format="HH:mm"
           placeholder="Arbitrary time"
           @change="scope.row.calcHours"
         >
@@ -50,7 +52,12 @@
     </el-table-column>
     <el-table-column prop="overtimeHours" label="遅刻・早退" width="100">
     </el-table-column>
-    <el-table-column prop="overtimeHours" label="備考"> </el-table-column>
+    <el-table-column prop="remarks" label="備考">
+      <template slot-scope="scope">
+        <el-input placeholder="備考" v-model="scope.row.remarks" clearable>
+        </el-input>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
@@ -123,7 +130,7 @@ export default class RosterTable extends Vue {
           }
         }, 0)}`;
       } else {
-        sums[index] = "N/A";
+        sums[index] = "";
       }
     });
 

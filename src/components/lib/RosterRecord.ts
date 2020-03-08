@@ -21,6 +21,8 @@ export default class RosterRecord {
   public holidayOvertimeHours = 0;
   /** 代休時間 */
   public compensatoryDayOff = 0;
+  /** 代休時間 */
+  public remarks = "";
   /** 祝日 */
   public isHoliday: boolean;
   /** 平日 */
