@@ -1,3 +1,5 @@
+import DateUtils from "./DateUtils";
+
 export default class RosterRecord {
   public src: Date;
   public date: number;
@@ -6,6 +8,7 @@ export default class RosterRecord {
   public end: Date;
   public workingHours = 0;
   public overtimeHours = 0;
+  public isHoliday: boolean;
 
   constructor(src: Date) {
     this.src = src;
@@ -23,6 +26,7 @@ export default class RosterRecord {
     this.end.setMinutes(0);
     this.end.setSeconds(0);
     this.end.setMilliseconds(0);
+    this.isHoliday = DateUtils.isHoliday(this.src);
   }
 
   public get getDate(): number {

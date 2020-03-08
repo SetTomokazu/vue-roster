@@ -1,3 +1,5 @@
+import * as holidayJp from "@holiday-jp/holiday_jp";
+
 export default class DateUtils {
   public static getFirstDay(src: Date): Date {
     return new Date(src.getFullYear(), src.getMonth(), 1);
@@ -22,5 +24,9 @@ export default class DateUtils {
   private static weeks: string[] = ["日", "月", "火", "水", "木", "金", "土"];
   public static getWeek(src: number): string {
     return this.weeks[src];
+  }
+
+  public static isHoliday(target: Date) {
+    return holidayJp.isHoliday(target);
   }
 }

@@ -1,5 +1,11 @@
 <template>
-  <el-table :data="tableData">
+  <el-table
+    :data="tableData"
+    height="600"
+    :row-class-name="tableRowClassName"
+    border
+    show-summary
+  >
     <el-table-column prop="date" label="日" width="50"> </el-table-column>
     <el-table-column prop="day" label="曜日" width="50" :formatter="getWeek">
     </el-table-column>
@@ -53,8 +59,30 @@ export default class RosterTable extends Vue {
       t => new RosterRecord(t)
     );
   }
-  public calcHours(event: any) {
-    console.log(JSON.stringify(event));
+
+  public tableRowClassName(obj: { row: RosterRecord; rowIndex: number }) {
+    if (obj.row.day === 0) {
+      return "sunday-row";
+    } else if (obj.row.day === 6) {
+      return "saturday-row";
+    } else if (obj.row.isHoliday) {
+      return "holiday-row";
+    } else {
+      return "";
+    }
   }
 }
 </script>
+
+<style>
+.el-table .saturday-row {
+  background: turquoise;
+}
+
+.el-table .sunday-row {
+  background: tomato;
+}
+.el-table .holiday-row {
+  background: tomato;
+}
+</style>
