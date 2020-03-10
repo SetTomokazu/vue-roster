@@ -1,6 +1,6 @@
 <template>
   <div class="roster">
-    <regular-time ref="regular"></regular-time>
+    <time-setting ref="setting"></time-setting>
     <roster-table ref="table"></roster-table>
   </div>
 </template>
@@ -9,8 +9,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import RegularTime from "@/components/parts/RegularTime.vue";
 import RosterTable from "@/components/parts/RosterTable.vue";
+import TimeSetting from "@/components/parts/TimeSetting.vue";
 
-@Component({ components: { RosterTable, RegularTime } })
+@Component({ components: { RosterTable, RegularTime, TimeSetting } })
 export default class Roster extends Vue {
   private targetMonth: Date = new Date();
   private workRecord: [] = [];
