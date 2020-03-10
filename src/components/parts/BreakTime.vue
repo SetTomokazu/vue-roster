@@ -20,8 +20,8 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class BreakTime extends Vue {
   private regularTime: Date[] = [
-    new Date(2020, 1, 1, 9, 0, 0),
-    new Date(2020, 1, 1, 18, 0, 0)
+    new Date(2020, 1, 1, 8, 30, 0),
+    new Date(2020, 1, 1, 9, 0, 0)
   ];
 }
 </script>

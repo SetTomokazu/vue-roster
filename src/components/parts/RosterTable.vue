@@ -7,10 +7,22 @@
     show-summary
     :summary-method="getSummaries"
   >
-    <el-table-column prop="date" label="日" width="50"> </el-table-column>
-    <el-table-column prop="day" label="曜日" width="50" :formatter="getWeek">
+    <el-table-column prop="date" label="日" width="50" header-align="center">
     </el-table-column>
-    <el-table-column prop="start" label="勤務時間" width="245">
+    <el-table-column
+      prop="day"
+      label="曜日"
+      width="50"
+      :formatter="getWeek"
+      header-align="center"
+    >
+    </el-table-column>
+    <el-table-column
+      prop="start"
+      label="勤務時間"
+      width="245"
+      header-align="center"
+    >
       <template slot-scope="scope">
         <el-time-picker
           v-model="scope.row.start"
@@ -25,7 +37,12 @@
         </el-time-picker>
       </template>
     </el-table-column>
-    <el-table-column prop="end" label="退社時間" width="245">
+    <el-table-column
+      prop="end"
+      label="退社時間"
+      width="245"
+      header-align="center"
+    >
       <template slot-scope="scope">
         <el-time-picker
           v-model="scope.row.end"
@@ -43,7 +60,8 @@
     <el-table-column
       prop="workingHours"
       label="実作業時間"
-      width="120"
+      width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -51,6 +69,7 @@
       prop="overtimeHours"
       label="残業時間"
       width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -58,6 +77,7 @@
       prop="holidayWorkingHours"
       label="休出時間"
       width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -65,6 +85,7 @@
       prop="holidayOvertimeHours"
       label="休出残業"
       width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -72,6 +93,7 @@
       prop="overtimeHours"
       label="代休時間"
       width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -79,6 +101,7 @@
       prop="overtimeHours"
       label="遅刻・早退"
       width="100"
+      header-align="center"
       :formatter="numberFormatter"
     >
     </el-table-column>
@@ -133,6 +156,10 @@ export default class RosterTable extends Vue {
       }
       if (index === 3) {
         sums[index] = "合計";
+        return;
+      }
+      if (index === 10) {
+        sums[index] = "";
         return;
       }
       console.log(column.property);

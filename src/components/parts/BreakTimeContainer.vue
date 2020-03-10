@@ -1,14 +1,12 @@
 <template>
   <el-container>
     <el-header>休憩時間</el-header>
-    <el-row>
-      <el-col :span="12"><break-time /></el-col>
-      <el-col :span="12"><break-time /></el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12"><break-time /></el-col>
-      <el-col :span="12"><break-time /></el-col>
-    </el-row>
+    <el-main>
+      <break-time />
+      <break-time />
+      <break-time />
+      <break-time />
+    </el-main>
   </el-container>
 </template>
 
@@ -31,7 +29,6 @@ export default class BreakTimeContainer extends Vue {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
-  line-height: 60px;
 }
 .el-aside {
   background-color: #d3dce6;
