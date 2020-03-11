@@ -1,12 +1,23 @@
 <template>
   <el-container>
     <el-header>休憩時間</el-header>
-    <el-main>
-      <break-time />
-      <break-time />
-      <break-time />
-      <break-time />
-    </el-main>
+    <el-row>
+      <el-col :span="12">
+        <break-time />
+      </el-col>
+      <el-col :span="12">
+        <break-time />
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <break-time />
+      </el-col>
+      <el-col :span="12">
+        <break-time />
+        <regular-time />
+      </el-col>
+    </el-row>
   </el-container>
 </template>
 

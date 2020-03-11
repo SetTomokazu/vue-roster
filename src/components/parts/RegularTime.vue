@@ -3,6 +3,7 @@
     v-model="regularTime"
     arrow-control
     is-range
+    class="RegularTime"
     range-separator="To"
     :picker-options="{
       selectableRange: '00:00:00 - 23:59:00'
@@ -26,4 +27,8 @@ export default class RegularTime extends Vue {
 }
 </script>
 
-<style></style>
+<style scoped>
+.RegularTime {
+  width: 100%;
+}
+</style>
