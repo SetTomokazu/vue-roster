@@ -15,7 +15,6 @@
       </el-col>
       <el-col :span="12">
         <break-time />
-        <regular-time />
       </el-col>
     </el-row>
   </el-container>

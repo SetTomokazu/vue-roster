@@ -19,7 +19,7 @@
     </el-table-column>
     <el-table-column
       prop="start"
-      label="勤務時間"
+      label="出社時間"
       width="245"
       header-align="center"
     >
@@ -27,11 +27,12 @@
         <el-time-picker
           v-model="scope.row.start"
           arrow-control
+          class="WorkTimePicker"
           :picker-options="{
             selectableRange: '00:00:00 - 23:59:00'
           }"
           format="HH:mm"
-          placeholder="Arbitrary time"
+          placeholder="出勤時間"
           @change="scope.row.calcHours"
         >
         </el-time-picker>
@@ -47,11 +48,12 @@
         <el-time-picker
           v-model="scope.row.end"
           arrow-control
+          class="WorkTimePicker"
           :picker-options="{
             selectableRange: '00:00:00 - 23:59:00'
           }"
           format="HH:mm"
-          placeholder="Arbitrary time"
+          placeholder="退社時間"
           @change="scope.row.calcHours"
         >
         </el-time-picker>
@@ -121,7 +123,7 @@ import DateUtils from "../lib/DateUtils";
 import { ElTableColumn, TableColumn } from "element-ui/types/table-column";
 import { SummaryMethodParams } from "element-ui/types/table";
 
-@Component
+@Component({})
 export default class RosterTable extends Vue {
   private tableData: RosterRecord[] = [];
   public getWeek(row: RosterRecord, column: string) {
@@ -162,7 +164,6 @@ export default class RosterTable extends Vue {
         sums[index] = "";
         return;
       }
-      console.log(column.property);
       const values = params.data.map(item => {
         switch (column.property) {
           case "workingHours":
@@ -214,5 +215,9 @@ export default class RosterTable extends Vue {
 }
 .el-table .holiday-row {
   background: tomato;
+}
+
+.WorkTimePicker {
+  width: 100%;
 }
 </style>
