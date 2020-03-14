@@ -11,12 +11,16 @@
     format="HH:mm"
     start-placeholder="Start time"
     end-placeholder="End time"
+    @change="change"
   >
   </el-time-picker>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Store } from "vuex";
+import { getModule } from "vuex-module-decorators";
+import { RegularTimeStore } from "@/store";
 
 @Component
 export default class RegularTime extends Vue {
@@ -24,6 +28,14 @@ export default class RegularTime extends Vue {
     new Date(2020, 1, 1, 9, 0, 0),
     new Date(2020, 1, 1, 18, 0, 0)
   ];
+
+  private mounted() {
+    this.regularTime = RegularTimeStore.range;
+  }
+  private change(event: Date[]) {
+    RegularTimeStore.updateStartTime(event[0]);
+    RegularTimeStore.updateEndTime(event[1]);
+  }
 }
 </script>
 

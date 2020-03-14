@@ -11,6 +11,7 @@
     "@holiday-jp/holiday_jp": "^2.2.3",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
+    "register-service-worker": "^1.7.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.3.0",
@@ -37,7 +38,8 @@
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
     "typescript": "~3.7.5",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuex-module-decorators": "^0.16.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
