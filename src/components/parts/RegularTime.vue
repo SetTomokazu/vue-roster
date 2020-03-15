@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { Store } from "vuex";
 import { getModule } from "vuex-module-decorators";
-import { RegularTimeStore } from "@/store";
+import { RegularTimeModule } from "@/store/modules/RegularTimeModule";
 
 @Component
 export default class RegularTime extends Vue {
@@ -28,13 +28,16 @@ export default class RegularTime extends Vue {
     new Date(2020, 1, 1, 9, 0, 0),
     new Date(2020, 1, 1, 18, 0, 0)
   ];
+  @Watch("RegularTimeStore.Range")
+  private update(store: Date[]) {
+    this.regularTime = store;
+  }
 
   private mounted() {
-    this.regularTime = RegularTimeStore.range;
+    this.regularTime = RegularTimeModule.Range;
   }
   private change(event: Date[]) {
-    RegularTimeStore.updateStartTime(event[0]);
-    RegularTimeStore.updateEndTime(event[1]);
+    RegularTimeModule.update(event);
   }
 }
 </script>

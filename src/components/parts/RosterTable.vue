@@ -1,119 +1,119 @@
 <template>
-  <el-table
-    :data="tableData"
-    height="600"
-    :row-class-name="tableRowClassName"
-    border
-    show-summary
-    :summary-method="getSummaries"
-  >
-    <el-table-column prop="date" label="日" width="50" header-align="center">
-    </el-table-column>
-    <el-table-column
-      prop="day"
-      label="曜日"
-      width="50"
-      :formatter="getWeek"
-      header-align="center"
+  <div class="RosterTable">
+    <el-table
+      :data="tableData"
+      height="600"
+      :row-class-name="tableRowClassName"
+      border
+      show-summary
+      :summary-method="getSummaries"
     >
-    </el-table-column>
-    <el-table-column
-      prop="start"
-      label="出社時間"
-      width="245"
-      header-align="center"
-    >
-      <template slot-scope="scope">
-        <el-time-picker
-          v-model="scope.row.start"
-          arrow-control
-          class="WorkTimePicker"
-          :picker-options="{
-            selectableRange: '00:00:00 - 23:59:00'
-          }"
-          format="HH:mm"
-          placeholder="出勤時間"
-          @change="scope.row.calcHours"
-        >
-        </el-time-picker>
-      </template>
-    </el-table-column>
-    <el-table-column
-      prop="end"
-      label="退社時間"
-      width="245"
-      header-align="center"
-    >
-      <template slot-scope="scope">
-        <el-time-picker
-          v-model="scope.row.end"
-          arrow-control
-          class="WorkTimePicker"
-          :picker-options="{
-            selectableRange: '00:00:00 - 23:59:00'
-          }"
-          format="HH:mm"
-          placeholder="退社時間"
-          @change="scope.row.calcHours"
-        >
-        </el-time-picker>
-      </template>
-    </el-table-column>
-    <el-table-column
-      prop="workingHours"
-      label="実作業時間"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="overtimeHours"
-      label="残業時間"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="holidayWorkingHours"
-      label="休出時間"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="holidayOvertimeHours"
-      label="休出残業"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="overtimeHours"
-      label="代休時間"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column
-      prop="overtimeHours"
-      label="遅刻・早退"
-      width="100"
-      header-align="center"
-      :formatter="numberFormatter"
-    >
-    </el-table-column>
-    <el-table-column prop="remarks" label="備考">
-      <template slot-scope="scope">
-        <el-input placeholder="備考" v-model="scope.row.remarks" clearable>
-        </el-input>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column prop="date" label="日" width="50" header-align="center">
+      </el-table-column>
+      <el-table-column
+        prop="day"
+        label="曜日"
+        width="50"
+        :formatter="getWeek"
+        header-align="center"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="start"
+        label="出社時間"
+        width="120"
+        header-align="center"
+      >
+        <template slot-scope="scope">
+          <el-time-picker
+            v-model="scope.row.start"
+            arrow-control
+            :picker-options="{
+              selectableRange: '00:00:00 - 23:59:00'
+            }"
+            format="HH:mm"
+            placeholder=""
+            @change="scope.row.calcHours"
+          >
+          </el-time-picker>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="end"
+        label="退社時間"
+        width="120"
+        header-align="center"
+      >
+        <template slot-scope="scope">
+          <el-time-picker
+            v-model="scope.row.end"
+            arrow-control
+            :picker-options="{
+              selectableRange: '00:00:00 - 23:59:00'
+            }"
+            format="HH:mm"
+            placeholder=""
+            @change="scope.row.calcHours"
+          >
+          </el-time-picker>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="workingHours"
+        label="実作業時間"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="overtimeHours"
+        label="残業時間"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="holidayWorkingHours"
+        label="休出時間"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="holidayOvertimeHours"
+        label="休出残業"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="overtimeHours"
+        label="代休時間"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="overtimeHours"
+        label="遅刻・早退"
+        width="100"
+        header-align="center"
+        :formatter="numberFormatter"
+      >
+      </el-table-column>
+      <el-table-column prop="remarks" label="備考">
+        <template slot-scope="scope">
+          <el-input placeholder="備考" v-model="scope.row.remarks" clearable>
+          </el-input>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script lang="ts">
@@ -205,19 +205,19 @@ export default class RosterTable extends Vue {
 }
 </script>
 
-<style>
-.el-table .saturday-row {
+<style scoped>
+.RosterTable >>> .el-table .saturday-row {
   background: turquoise;
 }
 
-.el-table .sunday-row {
+.RosterTable >>> .el-table .sunday-row {
   background: tomato;
 }
-.el-table .holiday-row {
+.RosterTable >>> .el-table .holiday-row {
   background: tomato;
 }
 
-.WorkTimePicker {
+.RosterTable >>> .el-date-editor.el-input {
   width: 100%;
 }
 </style>

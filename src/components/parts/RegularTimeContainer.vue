@@ -27,10 +27,6 @@ import RegularTime from "./RegularTime.vue";
 @Component({ components: { RegularTime } })
 export default class RegularTimeContainer extends Vue {
   private input = "";
-  private regularTime: Date[] = [
-    new Date(2020, 1, 1, 9, 0, 0),
-    new Date(2020, 1, 1, 18, 0, 0)
-  ];
 }
 </script>
 
