@@ -7,18 +7,18 @@ import {
 import store from "@/store";
 
 export interface IRegularTime {
-  range: Date[];
+  range: Date[] | null;
 }
 
 @Module({ dynamic: true, store, name: "regularTime" })
 class RegularTime extends VuexModule implements IRegularTime {
-  public range: Date[] = [
+  public range: Date[] | null = [
     new Date(2020, 1, 1, 9, 0, 0),
     new Date(2020, 1, 1, 18, 0, 0)
   ];
 
   @Mutation
-  update(range: Date[]) {
+  update(range: Date[] | null) {
     this.range = range;
   }
 }

@@ -11,6 +11,7 @@
     "@holiday-jp/holiday_jp": "^2.2.3",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
+    "moment": "^2.24.0",
     "register-service-worker": "^1.7.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",

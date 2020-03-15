@@ -4,18 +4,18 @@
       <el-header>休憩時間</el-header>
       <el-row>
         <el-col :span="12">
-          <break-time />
+          <break-time ref="breakTime1" @change="change1" />
         </el-col>
         <el-col :span="12">
-          <break-time />
+          <break-time ref="breakTime2" @change="change2" />
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <break-time />
+          <break-time ref="breakTime3" @change="change3" />
         </el-col>
         <el-col :span="12">
-          <break-time />
+          <break-time ref="breakTime4" @change="change4" />
         </el-col>
       </el-row>
     </el-container>
@@ -25,13 +25,38 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BreakTime from "./BreakTime.vue";
+import { BreakTimeListModule } from "../../store/modules/BreakTimeListModule";
 
 @Component({ components: { BreakTime } })
 export default class BreakTimeContainer extends Vue {
-  private regularTime: Date[] = [
-    new Date(2020, 1, 1, 9, 0, 0),
-    new Date(2020, 1, 1, 18, 0, 0)
-  ];
+  private get refs(): any {
+    return this.$refs;
+  }
+  private mounted() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "updateBreakTimeAt") {
+        this.refs.breakTime1.update(BreakTimeListModule.breakTimeList[0]);
+        this.refs.breakTime2.update(BreakTimeListModule.breakTimeList[1]);
+        this.refs.breakTime3.update(BreakTimeListModule.breakTimeList[2]);
+        this.refs.breakTime4.update(BreakTimeListModule.breakTimeList[3]);
+      }
+    });
+  }
+  private change1(value: Date[] | null) {
+    this.change(0, value);
+  }
+  private change2(value: Date[] | null) {
+    this.change(1, value);
+  }
+  private change3(value: Date[] | null) {
+    this.change(2, value);
+  }
+  private change4(value: Date[] | null) {
+    this.change(3, value);
+  }
+  private change(index: number, value: Date[] | null) {
+    BreakTimeListModule.updateBreakTimeAt({ index, value });
+  }
 }
 </script>
 

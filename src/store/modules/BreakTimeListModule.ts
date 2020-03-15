@@ -1,14 +1,24 @@
-import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
+import {
+  Module,
+  VuexModule,
+  Mutation,
+  getModule
+} from "vuex-module-decorators";
+import store from "@/store";
 
-@Module({ stateFactory: true })
-export default class BreakTimeListModule extends VuexModule {
-  public range: Date[] = [
-    new Date(2020, 1, 1, 9, 0, 0),
-    new Date(2020, 1, 1, 18, 0, 0)
-  ];
+export interface IBreakTimeList {
+  breakTimeList: (Date[] | null)[];
+}
+
+@Module({ dynamic: true, store, name: "regularTime" })
+class BreakTimeList extends VuexModule implements IBreakTimeList {
+  public breakTimeList: (Date[] | null)[] = [null, null, null, null];
 
   @Mutation
-  update(range: Date[]) {
-    this.range = range;
+  updateBreakTimeAt(arg: { index: number; value: Date[] | null }) {
+    console.log(`updateBreakTimeAt ${arg.index}: ${arg.value}`);
+    this.breakTimeList[arg.index] = arg.value;
   }
 }
+
+export const BreakTimeListModule = getModule(BreakTimeList);

@@ -1,7 +1,7 @@
 <template>
   <div class="BreakTime">
     <el-time-picker
-      v-model="regularTime"
+      v-model="breakTime"
       arrow-control
       is-range
       class="BreakTime"
@@ -12,20 +12,27 @@
       format="HH:mm"
       start-placeholder="Start time"
       end-placeholder="End time"
+      @change="change"
     >
     </el-time-picker>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Emit } from "vue-property-decorator";
 
 @Component
 export default class BreakTime extends Vue {
-  private regularTime: Date[] = [
-    new Date(2020, 1, 1, 8, 30, 0),
-    new Date(2020, 1, 1, 9, 0, 0)
-  ];
+  private breakTime: Date[] | null = null;
+
+  public update(value: Date[] | null) {
+    this.breakTime = value;
+  }
+
+  @Emit("change")
+  private change(value: Date[] | null) {
+    return value;
+  }
 }
 </script>
 

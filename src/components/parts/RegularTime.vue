@@ -26,7 +26,7 @@ import { RegularTimeModule } from "@/store/modules/RegularTimeModule";
 
 @Component
 export default class RegularTime extends Vue {
-  private regularTime: Date[] = [
+  private regularTime: Date[] | null = [
     new Date(2020, 1, 1, 9, 0, 0),
     new Date(2020, 1, 1, 18, 0, 0)
   ];
