@@ -17,10 +17,6 @@ class RegularTime extends VuexModule implements IRegularTime {
     new Date(2020, 1, 1, 18, 0, 0)
   ];
 
-  public get Range() {
-    return this.range;
-  }
-
   @Mutation
   update(range: Date[]) {
     this.range = range;

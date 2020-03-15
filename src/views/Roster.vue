@@ -10,6 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 import RegularTime from "@/components/parts/RegularTime.vue";
 import RosterTable from "@/components/parts/RosterTable.vue";
 import TimeSetting from "@/components/parts/TimeSetting.vue";
+import { RosterRecordListModule } from "../store/modules/RosterRecordListModule";
 
 @Component({ components: { RosterTable, RegularTime, TimeSetting } })
 export default class Roster extends Vue {
@@ -24,7 +25,8 @@ export default class Roster extends Vue {
   }
 
   private mounted() {
-    this.refs.table.selectTartgetMonth(new Date());
+    RosterRecordListModule.init(new Date());
+    // this.refs.table.selectTartgetMonth(new Date());
   }
 }
 </script>

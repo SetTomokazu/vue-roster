@@ -33,7 +33,7 @@
             }"
             format="HH:mm"
             placeholder=""
-            @change="scope.row.calcHours"
+            @change="updateStartTime(scope.$index, scope.row.start)"
           >
           </el-time-picker>
         </template>
@@ -53,7 +53,7 @@
             }"
             format="HH:mm"
             placeholder=""
-            @change="scope.row.calcHours"
+            @change="updateEndTime(scope.$index, scope.row.end)"
           >
           </el-time-picker>
         </template>
@@ -117,10 +117,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import RosterRecord from "@/components/lib/RosterRecord";
 import DateUtils from "../lib/DateUtils";
 import { TableColumn } from "element-ui/types/table-column";
+import { RosterRecordListModule } from "@/store/modules/RosterRecordListModule";
 
 @Component({})
 export default class RosterTable extends Vue {
@@ -128,10 +129,21 @@ export default class RosterTable extends Vue {
   public getWeek(row: RosterRecord, column: string) {
     return DateUtils.getWeek(row.day);
   }
-  public selectTartgetMonth(target: Date) {
-    this.tableData = DateUtils.getDaysOfMonth(target).map(
-      t => new RosterRecord(t)
-    );
+
+  private mounted() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "init") {
+        this.tableData = RosterRecordListModule.list;
+      }
+    });
+  }
+
+  @Watch("RosterRecordListModule.list")
+  private onChangeRosterRecordListModule(
+    newList: RosterRecord[],
+    oldList: RosterRecord[]
+  ) {
+    this.tableData = RosterRecordListModule.list;
   }
 
   public tableRowClassName(obj: { row: RosterRecord; rowIndex: number }) {
@@ -144,6 +156,13 @@ export default class RosterTable extends Vue {
     } else {
       return "";
     }
+  }
+
+  public updateStartTime(index: number, value: Date | null) {
+    RosterRecordListModule.updateStartAt({ index, value });
+  }
+  public updateEndTime(index: number, value: Date) {
+    RosterRecordListModule.updateEndAt({ index, value });
   }
   getSummaries(params: {
     columns: TableColumn[];
