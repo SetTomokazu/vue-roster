@@ -120,8 +120,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import RosterRecord from "@/components/lib/RosterRecord";
 import DateUtils from "../lib/DateUtils";
-import { ElTableColumn, TableColumn } from "element-ui/types/table-column";
-import { SummaryMethodParams } from "element-ui/types/table";
+import { TableColumn } from "element-ui/types/table-column";
 
 @Component({})
 export default class RosterTable extends Vue {

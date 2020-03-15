@@ -1,11 +1,13 @@
 <template>
-  <el-container>
-    <el-header>勤務表</el-header>
-    <el-row>
-      <el-col :span="12"><regular-time-container /></el-col>
-      <el-col :span="12"><break-time-container /></el-col>
-    </el-row>
-  </el-container>
+  <div class="TimeSetting">
+    <el-container>
+      <el-header>勤務表</el-header>
+      <el-row>
+        <el-col :span="12"><regular-time-container /></el-col>
+        <el-col :span="12"><break-time-container /></el-col>
+      </el-row>
+    </el-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,4 +24,11 @@ export default class TimeSetting extends Vue {
 }
 </script>
 
-<style></style>
+<style scoped>
+.TimeSetting >>> .el-header {
+  background-color: #c6d1b3;
+  color: #333;
+  font-size: 150%;
+  text-align: center;
+}
+</style>

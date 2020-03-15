@@ -1,23 +1,25 @@
 <template>
-  <el-container>
-    <el-header>休憩時間</el-header>
-    <el-row>
-      <el-col :span="12">
-        <break-time />
-      </el-col>
-      <el-col :span="12">
-        <break-time />
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        <break-time />
-      </el-col>
-      <el-col :span="12">
-        <break-time />
-      </el-col>
-    </el-row>
-  </el-container>
+  <div class="BreakTimeContainer">
+    <el-container>
+      <el-header>休憩時間</el-header>
+      <el-row>
+        <el-col :span="12">
+          <break-time />
+        </el-col>
+        <el-col :span="12">
+          <break-time />
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <break-time />
+        </el-col>
+        <el-col :span="12">
+          <break-time />
+        </el-col>
+      </el-row>
+    </el-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -33,20 +35,19 @@ export default class BreakTimeContainer extends Vue {
 }
 </script>
 
-<style>
-.el-header,
-.el-footer {
+<style scoped>
+.BreakTimeContainer >>> .el-header {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
 }
-.el-aside {
+.BreakTimeContainer >>> .el-aside {
   background-color: #d3dce6;
   color: #333;
   text-align: center;
 }
 
-.el-main {
+.BreakTimeContainer >>> .el-main {
   background-color: #e9eef3;
   color: #333;
   text-align: center;

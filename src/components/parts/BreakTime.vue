@@ -1,18 +1,20 @@
 <template>
-  <el-time-picker
-    v-model="regularTime"
-    arrow-control
-    is-range
-    class="BreakTime"
-    range-separator="To"
-    :picker-options="{
-      selectableRange: '00:00:00 - 23:59:00'
-    }"
-    format="HH:mm"
-    start-placeholder="Start time"
-    end-placeholder="End time"
-  >
-  </el-time-picker>
+  <div class="BreakTime">
+    <el-time-picker
+      v-model="regularTime"
+      arrow-control
+      is-range
+      class="BreakTime"
+      range-separator="To"
+      :picker-options="{
+        selectableRange: '00:00:00 - 23:59:00'
+      }"
+      format="HH:mm"
+      start-placeholder="Start time"
+      end-placeholder="End time"
+    >
+    </el-time-picker>
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,7 +30,7 @@ export default class BreakTime extends Vue {
 </script>
 
 <style scoped>
-.BreakTime {
+.BreakTime >>> .BreakTime {
   width: 100%;
 }
 </style>
