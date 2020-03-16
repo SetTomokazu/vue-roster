@@ -19,44 +19,60 @@
       >
       </el-table-column>
       <el-table-column
-        prop="start"
+        prop="attendanceTime"
         label="出社時間"
         width="120"
         header-align="center"
       >
         <template slot-scope="scope">
           <el-time-picker
-            v-model="scope.row.start"
+            v-model="scope.row.attendanceTime"
             arrow-control
             :picker-options="{
               selectableRange: '00:00:00 - 23:59:00'
             }"
             format="HH:mm"
             placeholder=""
-            @change="updateStartTime(scope.$index, scope.row.start)"
+            @change="updateStartTime(scope.$index, scope.row.attendanceTime)"
           >
           </el-time-picker>
         </template>
       </el-table-column>
       <el-table-column
-        prop="end"
+        prop="leavingTime"
         label="退社時間"
         width="120"
         header-align="center"
       >
         <template slot-scope="scope">
           <el-time-picker
-            v-model="scope.row.end"
+            v-model="scope.row.leavingTime"
             arrow-control
             :picker-options="{
               selectableRange: '00:00:00 - 23:59:00'
             }"
             format="HH:mm"
             placeholder=""
-            @change="updateEndTime(scope.$index, scope.row.end)"
+            @change="updateEndTime(scope.$index, scope.row.leavingTime)"
           >
           </el-time-picker>
         </template>
+      </el-table-column>
+      <el-table-column
+        prop="start"
+        label="作業開始時間"
+        width="120"
+        header-align="center"
+        :formatter="dateFormatter"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="end"
+        label="作業終了時間"
+        width="120"
+        header-align="center"
+        :formatter="dateFormatter"
+      >
       </el-table-column>
       <el-table-column
         prop="workingHours"
@@ -122,6 +138,7 @@ import RosterRecord from "@/components/lib/RosterRecord";
 import DateUtils from "../lib/DateUtils";
 import { TableColumn } from "element-ui/types/table-column";
 import { RosterRecordListModule } from "@/store/modules/RosterRecordListModule";
+import moment from "moment";
 
 @Component({})
 export default class RosterTable extends Vue {
@@ -219,6 +236,14 @@ export default class RosterTable extends Vue {
     index: number
   ): number {
     return Math.round(cellValue * 100) / 100;
+  }
+  public dateFormatter(
+    row: RosterRecord,
+    column: TableColumn,
+    cellValue: Date | null,
+    index: number
+  ): string {
+    return cellValue === null ? "" : moment(cellValue).format("HH:mm");
   }
 }
 </script>

@@ -1,5 +1,4 @@
 import DateUtils from "./DateUtils";
-
 export default class RosterRecord {
   /** 対象日 */
   public src: Date;
@@ -8,8 +7,12 @@ export default class RosterRecord {
   /** 曜日 */
   public day: number;
   /** 出勤時間 */
+  public attendanceTime: Date | null = null;
+  /** 退勤時間 */
+  public leavingTime: Date | null = null;
+  /** 作業開始時間 */
   public start: Date | null = null;
-  /** 退社時間 */
+  /** 作業終了時間 */
   public end: Date | null = null;
   /** 実作業時間 */
   public workingHours = 0;
@@ -36,17 +39,17 @@ export default class RosterRecord {
     this.isHoliday = DateUtils.isHoliday(this.src);
     this.isWorkday = this.day !== 0 && this.day !== 6 && !this.isHoliday;
     if (this.isWorkday) {
-      this.start = new Date(this.src);
-      this.start.setHours(9);
-      this.start.setMinutes(0);
-      this.start.setSeconds(0);
-      this.start.setMilliseconds(0);
+      this.attendanceTime = new Date(this.src);
+      this.attendanceTime.setHours(9);
+      this.attendanceTime.setMinutes(0);
+      this.attendanceTime.setSeconds(0);
+      this.attendanceTime.setMilliseconds(0);
 
-      this.end = new Date(this.src);
-      this.end.setHours(18);
-      this.end.setMinutes(0);
-      this.end.setSeconds(0);
-      this.end.setMilliseconds(0);
+      this.leavingTime = new Date(this.src);
+      this.leavingTime.setHours(18);
+      this.leavingTime.setMinutes(0);
+      this.leavingTime.setSeconds(0);
+      this.leavingTime.setMilliseconds(0);
     }
     this.updateHours();
   }
@@ -57,20 +60,33 @@ export default class RosterRecord {
   public get getDay() {
     return this.src.getDay();
   }
-  public calcHours = (event: Date) => {
+  public updateAttendanceTime(value: Date | null) {
+    this.attendanceTime = value;
     this.updateHours();
-  };
+  }
+  public updateLeavingTime(value: Date | null) {
+    this.leavingTime = value;
+    this.updateHours();
+  }
 
   private updateHours = () => {
-    if (this.start === null || this.end === null) {
+    if (this.attendanceTime === null || this.leavingTime === null) {
       this.workingHours = 0;
     } else {
+      this.start = this.attendanceTime;
+      this.end = this.leavingTime;
       if (this.isWorkday) {
         this.workingHours =
-          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
+          (this.leavingTime.getTime() - this.attendanceTime.getTime()) /
+          60 /
+          60 /
+          1000;
       } else {
         this.holidayWorkingHours =
-          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
+          (this.leavingTime.getTime() - this.attendanceTime.getTime()) /
+          60 /
+          60 /
+          1000;
       }
     }
   };
