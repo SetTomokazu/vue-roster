@@ -1,4 +1,6 @@
 import DateUtils from "./DateUtils";
+import { BreakTimeListModule } from "@/store/modules/BreakTimeListModule";
+
 export default class RosterRecord {
   /** 対象日 */
   public src: Date;
@@ -70,11 +72,23 @@ export default class RosterRecord {
   }
 
   private updateHours = () => {
+    console.log("updateHours");
     if (this.attendanceTime === null || this.leavingTime === null) {
       this.workingHours = 0;
     } else {
       this.start = this.attendanceTime;
       this.end = this.leavingTime;
+
+      // 開始時間と終了時間の調整
+      if (this.isBreakTime(this.start)) {
+        const bt = this.getBreakTime(this.start)!;
+        this.start = bt[1];
+      }
+      if (this.isBreakTime(this.end)) {
+        const bt = this.getBreakTime(this.end)!;
+        this.end = bt[0];
+      }
+
       if (this.isWorkday) {
         this.workingHours =
           (this.leavingTime.getTime() - this.attendanceTime.getTime()) /
@@ -90,4 +104,37 @@ export default class RosterRecord {
       }
     }
   };
+
+  private isBreakTime(at: Date): boolean {
+    const list = BreakTimeListModule.breakTimeList;
+    console.log(JSON.stringify(list));
+    if (list === undefined) {
+      return false;
+    } else {
+      return list
+        .filter(b => b !== null)
+        .map(b => b!)
+        .some(
+          b =>
+            DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
+            DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
+        );
+    }
+  }
+
+  private getBreakTime(at: Date): Date[] | undefined {
+    const list = BreakTimeListModule.breakTimeList;
+    if (list === undefined) {
+      return undefined;
+    } else {
+      return list
+        .filter(b => b !== null)
+        .map(b => b!)
+        .find(
+          b =>
+            DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
+            DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
+        );
+    }
+  }
 }

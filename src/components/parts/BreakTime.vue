@@ -21,11 +21,11 @@
 <script lang="ts">
 import { Component, Vue, Emit } from "vue-property-decorator";
 
-@Component
+@Component({})
 export default class BreakTime extends Vue {
   private breakTime: Date[] | null = null;
 
-  public update(value: Date[] | null) {
+  public update(value: Date[] | null): void {
     this.breakTime = value;
   }
 

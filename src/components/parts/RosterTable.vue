@@ -252,15 +252,17 @@ export default class RosterTable extends Vue {
 .RosterTable >>> .el-table .saturday-row {
   background: turquoise;
 }
-
 .RosterTable >>> .el-table .sunday-row {
   background: tomato;
 }
 .RosterTable >>> .el-table .holiday-row {
   background: tomato;
 }
-
 .RosterTable >>> .el-date-editor.el-input {
   width: 100%;
+}
+.RosterTable >>> .el-table td,
+.RosterTable >>> .el-table th {
+  padding: 1px;
 }
 </style>

@@ -1,5 +1,5 @@
 import * as holidayJp from "@holiday-jp/holiday_jp";
-
+import moment from "moment";
 export default class DateUtils {
   public static getFirstDay(src: Date): Date {
     return new Date(src.getFullYear(), src.getMonth(), 1);
@@ -28,5 +28,9 @@ export default class DateUtils {
 
   public static isHoliday(target: Date) {
     return holidayJp.isHoliday(target);
+  }
+
+  public static getTimeValue(at: Date): number {
+    return Number(moment(at).format("HHmm"));
   }
 }

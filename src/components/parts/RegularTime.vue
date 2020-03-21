@@ -36,6 +36,7 @@ export default class RegularTime extends Vue {
   }
 
   private mounted() {
+    console.log(`monted and set ${RegularTimeModule.range}`);
     this.regularTime = RegularTimeModule.range;
   }
   private change(event: Date[]) {

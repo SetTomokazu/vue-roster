@@ -5,12 +5,13 @@ import {
   getModule
 } from "vuex-module-decorators";
 import store from "@/store";
+import DateUtils from "@/components/lib/DateUtils";
 
 export interface IBreakTimeList {
   breakTimeList: (Date[] | null)[];
 }
 
-@Module({ dynamic: true, store, name: "regularTime" })
+@Module({ dynamic: true, store, name: "breakTimeList" })
 class BreakTimeList extends VuexModule implements IBreakTimeList {
   public breakTimeList: (Date[] | null)[] = [null, null, null, null];
 

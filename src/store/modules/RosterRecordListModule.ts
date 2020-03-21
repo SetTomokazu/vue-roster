@@ -12,7 +12,7 @@ export interface IRosterRecordList {
   list: RosterRecord[];
 }
 
-@Module({ dynamic: true, store, name: "regularTime" })
+@Module({ dynamic: true, store, name: "rosterRecordList" })
 class RosterRecordList extends VuexModule implements IRosterRecordList {
   public list: RosterRecord[] = [];
 
@@ -26,13 +26,13 @@ class RosterRecordList extends VuexModule implements IRosterRecordList {
   @Mutation
   updateStartAt(arg: { index: number; value: Date | null }) {
     console.log(`updateStartAt ${arg.index}: ${arg.value}`);
-    this.list[arg.index].start = arg.value;
+    this.list[arg.index].updateAttendanceTime(arg.value);
   }
 
   @Mutation
   updateEndAt(arg: { index: number; value: Date | null }) {
     console.log(`updateEndAt ${arg.index}: ${arg.value}`);
-    this.list[arg.index].end = arg.value;
+    this.list[arg.index].updateLeavingTime(arg.value);
   }
 }
 
