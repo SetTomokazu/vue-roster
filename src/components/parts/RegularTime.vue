@@ -7,7 +7,7 @@
       class="RegularTime"
       range-separator="To"
       :picker-options="{
-        selectableRange: '00:00:00 - 23:59:00'
+        selectableRange: '00:00 - 23:59'
       }"
       format="HH:mm"
       start-placeholder="Start time"

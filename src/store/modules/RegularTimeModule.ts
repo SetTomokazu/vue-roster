@@ -5,6 +5,7 @@ import {
   getModule
 } from "vuex-module-decorators";
 import store from "@/store";
+import DateUtils from "@/components/lib/DateUtils";
 
 export interface IRegularTime {
   range: Date[] | null;
@@ -19,7 +20,8 @@ class RegularTime extends VuexModule implements IRegularTime {
 
   @Mutation
   update(range: Date[] | null) {
-    this.range = range;
+    this.range =
+      range === null ? null : DateUtils.removeUnderSecondOfRange(range);
   }
 }
 

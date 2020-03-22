@@ -63,11 +63,13 @@ export default class RosterRecord {
     return this.src.getDay();
   }
   public updateAttendanceTime(value: Date | null) {
-    this.attendanceTime = value;
+    this.attendanceTime =
+      value === null ? null : DateUtils.removeUnderSecond(value);
     this.updateHours();
   }
   public updateLeavingTime(value: Date | null) {
-    this.leavingTime = value;
+    this.leavingTime =
+      value === null ? null : DateUtils.removeUnderSecond(value);
     this.updateHours();
   }
 
@@ -91,16 +93,10 @@ export default class RosterRecord {
 
       if (this.isWorkday) {
         this.workingHours =
-          (this.leavingTime.getTime() - this.attendanceTime.getTime()) /
-          60 /
-          60 /
-          1000;
+          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
       } else {
         this.holidayWorkingHours =
-          (this.leavingTime.getTime() - this.attendanceTime.getTime()) /
-          60 /
-          60 /
-          1000;
+          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
       }
     }
   };

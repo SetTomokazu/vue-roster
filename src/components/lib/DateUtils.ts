@@ -33,4 +33,14 @@ export default class DateUtils {
   public static getTimeValue(at: Date): number {
     return Number(moment(at).format("HHmm"));
   }
+
+  public static removeUnderSecond(at: Date): Date {
+    return moment(at)
+      .second(0)
+      .millisecond(0)
+      .toDate();
+  }
+  public static removeUnderSecondOfRange(range: Date[]): Date[] {
+    return range.map(r => this.removeUnderSecond(r));
+  }
 }
