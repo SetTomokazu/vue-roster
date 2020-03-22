@@ -25,13 +25,11 @@ class RosterRecordList extends VuexModule implements IRosterRecordList {
 
   @Mutation
   updateStartAt(arg: { index: number; value: Date | null }) {
-    console.log(`updateStartAt ${arg.index}: ${arg.value}`);
     this.list[arg.index].updateAttendanceTime(arg.value);
   }
 
   @Mutation
   updateEndAt(arg: { index: number; value: Date | null }) {
-    console.log(`updateEndAt ${arg.index}: ${arg.value}`);
     this.list[arg.index].updateLeavingTime(arg.value);
   }
 }

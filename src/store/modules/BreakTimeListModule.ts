@@ -6,6 +6,7 @@ import {
 } from "vuex-module-decorators";
 import store from "@/store";
 import DateUtils from "@/components/lib/DateUtils";
+import moment from "moment";
 
 export interface IBreakTimeList {
   breakTimeList: (Date[] | null)[];
@@ -19,6 +20,12 @@ class BreakTimeList extends VuexModule implements IBreakTimeList {
     [new Date(2020, 1, 1, 18, 0, 0), new Date(2020, 1, 1, 18, 30, 0)],
     [new Date(2020, 1, 1, 21, 30, 0), new Date(2020, 1, 1, 22, 0, 0)]
   ];
+
+  public get shadowList() {
+    return this.breakTimeList
+      .filter(b => b !== null)
+      .map(b => [moment(b![0]).toDate(), moment(b![1]).toDate()]);
+  }
 
   @Mutation
   updateBreakTimeAt(arg: { index: number; value: Date[] | null }) {
