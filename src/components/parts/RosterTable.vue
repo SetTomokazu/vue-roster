@@ -185,48 +185,28 @@ export default class RosterTable extends Vue {
     columns: TableColumn[];
     data: RosterRecord[];
   }): string[] {
-    const sums: string[] = [];
-    params.columns.forEach((column, index) => {
-      if (0 <= index && index < 3) {
-        sums[index] = "";
-        return;
-      }
-      if (index === 3) {
-        sums[index] = "合計";
-        return;
-      }
-      if (index === 10) {
-        sums[index] = "";
-        return;
-      }
-      const values = params.data.map(item => {
+    const reducer = (accumulator: number, currentValue: number) =>
+      accumulator + currentValue;
+    const sums: string[] = params.columns.map(
+      (column: TableColumn, index: number) => {
         switch (column.property) {
           case "workingHours":
-            return item.workingHours;
+            return `${params.data.map(d => d.workingHours).reduce(reducer)}`;
           case "overtimeHours":
-            return item.overtimeHours;
+            return `${params.data.map(d => d.overtimeHours).reduce(reducer)}`;
           case "holidayWorkingHours":
-            return item.holidayWorkingHours;
+            return `${params.data
+              .map(d => d.holidayWorkingHours)
+              .reduce(reducer)}`;
           case "holidayOvertimeHours":
-            return item.holidayOvertimeHours;
+            return `${params.data
+              .map(d => d.holidayOvertimeHours)
+              .reduce(reducer)}`;
           default:
-            return item.workingHours;
+            return "";
         }
-      });
-      if (!values.every(value => isNaN(value))) {
-        sums[index] = `${values.reduce((prev, curr) => {
-          const value = Number(curr);
-          if (!isNaN(value)) {
-            return prev + curr;
-          } else {
-            return prev;
-          }
-        }, 0)}`;
-      } else {
-        sums[index] = "";
       }
-    });
-
+    );
     return sums;
   }
   public numberFormatter(
