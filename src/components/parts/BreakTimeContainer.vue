@@ -35,12 +35,16 @@ export default class BreakTimeContainer extends Vue {
   private mounted() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === "updateBreakTimeAt") {
-        this.refs.breakTime1.update(BreakTimeListModule.breakTimeList[0]);
-        this.refs.breakTime2.update(BreakTimeListModule.breakTimeList[1]);
-        this.refs.breakTime3.update(BreakTimeListModule.breakTimeList[2]);
-        this.refs.breakTime4.update(BreakTimeListModule.breakTimeList[3]);
+        this.refresh();
       }
     });
+    this.refresh();
+  }
+  private refresh() {
+    this.refs.breakTime1.update(BreakTimeListModule.breakTimeList[0]);
+    this.refs.breakTime2.update(BreakTimeListModule.breakTimeList[1]);
+    this.refs.breakTime3.update(BreakTimeListModule.breakTimeList[2]);
+    this.refs.breakTime4.update(BreakTimeListModule.breakTimeList[3]);
   }
   private change1(value: Date[] | null) {
     this.change(0, value);

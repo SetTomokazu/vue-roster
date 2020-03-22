@@ -64,12 +64,12 @@ export default class RosterRecord {
   }
   public updateAttendanceTime(value: Date | null) {
     this.attendanceTime =
-      value === null ? null : DateUtils.removeUnderSecond(value);
+      value === null ? null : DateUtils.calcTime(value, this.src);
     this.updateHours();
   }
   public updateLeavingTime(value: Date | null) {
     this.leavingTime =
-      value === null ? null : DateUtils.removeUnderSecond(value);
+      value === null ? null : DateUtils.calcTime(value, this.src);
     this.updateHours();
   }
 
@@ -77,27 +77,27 @@ export default class RosterRecord {
     console.log("updateHours");
     if (this.attendanceTime === null || this.leavingTime === null) {
       this.workingHours = 0;
+      return;
+    }
+    this.start = this.attendanceTime;
+    this.end = this.leavingTime;
+
+    // 開始時間と終了時間の調整
+    if (this.isBreakTime(this.start)) {
+      const bt = this.getBreakTime(this.start)!;
+      this.start = DateUtils.calcTime(bt[1], this.src);
+    }
+    if (this.isBreakTime(this.end)) {
+      const bt = this.getBreakTime(this.end)!;
+      this.end = DateUtils.calcTime(bt[0], this.src);
+    }
+
+    if (this.isWorkday) {
+      this.workingHours =
+        (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
     } else {
-      this.start = this.attendanceTime;
-      this.end = this.leavingTime;
-
-      // 開始時間と終了時間の調整
-      if (this.isBreakTime(this.start)) {
-        const bt = this.getBreakTime(this.start)!;
-        this.start = bt[1];
-      }
-      if (this.isBreakTime(this.end)) {
-        const bt = this.getBreakTime(this.end)!;
-        this.end = bt[0];
-      }
-
-      if (this.isWorkday) {
-        this.workingHours =
-          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
-      } else {
-        this.holidayWorkingHours =
-          (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
-      }
+      this.holidayWorkingHours =
+        (this.end.getTime() - this.start.getTime()) / 60 / 60 / 1000;
     }
   };
 

@@ -2,7 +2,6 @@
   <div class="RosterTable">
     <el-table
       :data="tableData"
-      height="600"
       :row-class-name="tableRowClassName"
       border
       show-summary

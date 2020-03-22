@@ -34,13 +34,39 @@ export default class DateUtils {
     return Number(moment(at).format("HHmm"));
   }
 
-  public static removeUnderSecond(at: Date): Date {
-    return moment(at)
+  public static calcTime(at: Date, targetDate: Date) {
+    return this.adjustMidnight(this.removeUnderSecond(at, targetDate));
+  }
+
+  /** 深夜残業の場合、翌日換算 */
+  public static adjustMidnight(at: Date): Date {
+    if (0 <= at.getHours() && at.getHours() <= 5) {
+      return moment(at)
+        .add(1, "day")
+        .toDate();
+    } else {
+      return at;
+    }
+  }
+
+  /** 指定日の時刻に修正し、秒以下を破棄 */
+  public static removeUnderSecond(
+    at: Date,
+    targetDate: Date = new Date()
+  ): Date {
+    return moment(targetDate)
+      .hours(at.getHours())
+      .minutes(at.getMinutes())
       .second(0)
       .millisecond(0)
       .toDate();
   }
-  public static removeUnderSecondOfRange(range: Date[]): Date[] {
-    return range.map(r => this.removeUnderSecond(r));
+
+  /** 時刻の上限、下限を設定 */
+  public static removeUnderSecondOfRange(
+    range: Date[],
+    targetDate: Date = new Date()
+  ): Date[] {
+    return range.map(r => this.removeUnderSecond(targetDate, r));
   }
 }
