@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "sonar:scan": "sonar-scanner",
+    "sonar": "run-s test:unit:sonar lint:sonar sonar:scan",
+    "lint:sonar": "eslint -f json -o report.json ."
   },
   "dependencies": {
     "@holiday-jp/holiday_jp": "^2.2.3",
@@ -22,6 +25,7 @@
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.4",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@vue/cli-plugin-babel": "^4.2.0",
@@ -33,12 +37,19 @@
     "@vue/cli-service": "^4.2.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.1",
-    "eslint": "^6.7.2",
+    "@vue/test-utils": "^1.0.0-beta.32",
+    "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^7.0.0-alpha.0",
+    "jest": "^25.2.4",
+    "jest-sonar-reporter": "^2.0.0",
     "lint-staged": "^9.5.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
+    "sonarqube-scanner": "^2.6.0",
+    "ts-jest": "^25.3.0",
     "typescript": "~3.7.5",
+    "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11",
     "vuex-module-decorators": "^0.16.1"
   },
@@ -49,6 +60,26 @@
     "*.{js,jsx,vue,ts,tsx}": [
       "vue-cli-service lint",
       "git add"
+    ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testURL": "http://localhost/",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "snapshotSerializers": [
+      "jest-serializer-vue"
     ]
   }
 }
