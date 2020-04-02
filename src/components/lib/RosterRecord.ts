@@ -83,13 +83,13 @@ export default class RosterRecord {
 
     // 開始時間と終了時間の調整
     if (this.isBreakTime(this.start)) {
-      const bt: Date[] | undefined = this.getBreakTime(this.start)!;
+      const bt: Date[] | undefined = this.getBreakTime(this.start);
       if (bt !== undefined) {
         this.start = DateUtils.calcTime(bt[1], this.src);
       }
     }
     if (this.isBreakTime(this.end)) {
-      const bt: Date[] | undefined = this.getBreakTime(this.end)!;
+      const bt: Date[] | undefined = this.getBreakTime(this.end);
       if (bt !== undefined) {
         this.end = DateUtils.calcTime(bt[0], this.src);
       }
