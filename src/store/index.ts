@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { Store } from "vuex";
+import Vuex from "vuex";
 import { IRegularTime } from "./modules/RegularTimeModule";
 import { IRosterRecordList } from "./modules/RosterRecordListModule";
 import { IBreakTimeList } from "./modules/BreakTimeListModule";

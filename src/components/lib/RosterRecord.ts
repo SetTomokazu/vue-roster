@@ -134,7 +134,7 @@ export default class RosterRecord {
       .filter(
         b =>
           this.start!.getTime()! < b[0].getTime() &&
-          b![1].getTime() < this.end!.getTime()
+          b[1].getTime() < this.end!.getTime()
       )
       .map(b => (b[1].getTime() - b[0].getTime()) / 60 / 60 / 1000)
       .reduce((previous: number, current: number) => previous + current, 0);
