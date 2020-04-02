@@ -6,17 +6,17 @@ export default class DateUtils {
   }
 
   public static getLastDay(src: Date): Date {
-    const nextMonth = new Date(src);
+    const nextMonth: Date = new Date(src);
     nextMonth.setMonth(src.getMonth() + 1);
     nextMonth.setDate(0);
     return nextMonth;
   }
   public static getDaysOfMonth(src: Date): Date[] {
     const result: Date[] = [];
-    const firstDay = this.getFirstDay(src);
-    const lastDay = this.getLastDay(src);
+    const firstDay: Date = this.getFirstDay(src);
+    const lastDay: Date = this.getLastDay(src);
 
-    for (let d = firstDay.getDate(); d <= lastDay.getDate(); d++) {
+    for (let d: number = firstDay.getDate(); d <= lastDay.getDate(); d++) {
       result.push(new Date(src.getFullYear(), src.getMonth(), d));
     }
     return result;
@@ -26,7 +26,7 @@ export default class DateUtils {
     return this.weeks[src];
   }
 
-  public static isHoliday(target: Date) {
+  public static isHoliday(target: Date): boolean {
     return holidayJp.isHoliday(target);
   }
 
@@ -34,7 +34,7 @@ export default class DateUtils {
     return Number(moment(at).format("HHmm"));
   }
 
-  public static calcTime(at: Date, targetDate: Date) {
+  public static calcTime(at: Date, targetDate: Date): Date {
     return this.adjustMidnight(this.removeUnderSecond(at, targetDate));
   }
 

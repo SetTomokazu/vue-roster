@@ -21,19 +21,18 @@ class BreakTimeList extends VuexModule implements IBreakTimeList {
     [new Date(2020, 1, 1, 21, 30, 0), new Date(2020, 1, 1, 22, 0, 0)]
   ];
 
-  public get shadowList() {
+  public get shadowList(): Date[][] {
     return this.breakTimeList
       .filter(b => b !== null)
       .map(b => [moment(b![0]).toDate(), moment(b![1]).toDate()]);
   }
 
   @Mutation
-  updateBreakTimeAt(arg: { index: number; value: Date[] | null }) {
+  updateBreakTimeAt(arg: { index: number; value: Date[] | null }): void {
     console.log(`updateBreakTimeAt ${arg.index}: ${arg.value}`);
-
     this.breakTimeList[arg.index] =
       arg.value === null ? null : DateUtils.removeUnderSecondOfRange(arg.value);
   }
 }
 
-export const BreakTimeListModule = getModule(BreakTimeList);
+export const BreakTimeListModule: BreakTimeList = getModule(BreakTimeList);

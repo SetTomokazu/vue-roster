@@ -59,21 +59,21 @@ export default class RosterRecord {
   public get getDate(): number {
     return this.src.getDate();
   }
-  public get getDay() {
+  public get getDay(): number {
     return this.src.getDay();
   }
-  public updateAttendanceTime(value: Date | null) {
+  public updateAttendanceTime(value: Date | null): void {
     this.attendanceTime =
       value === null ? null : DateUtils.calcTime(value, this.src);
     this.updateHours();
   }
-  public updateLeavingTime(value: Date | null) {
+  public updateLeavingTime(value: Date | null): void {
     this.leavingTime =
       value === null ? null : DateUtils.calcTime(value, this.src);
     this.updateHours();
   }
 
-  private updateHours = () => {
+  private updateHours(): void {
     if (this.attendanceTime === null || this.leavingTime === null) {
       this.workingHours = 0;
       return;
@@ -83,62 +83,60 @@ export default class RosterRecord {
 
     // 開始時間と終了時間の調整
     if (this.isBreakTime(this.start)) {
-      const bt = this.getBreakTime(this.start)!;
-      this.start = DateUtils.calcTime(bt[1], this.src);
+      const bt: Date[] | undefined = this.getBreakTime(this.start)!;
+      if (bt !== undefined) {
+        this.start = DateUtils.calcTime(bt[1], this.src);
+      }
     }
     if (this.isBreakTime(this.end)) {
-      const bt = this.getBreakTime(this.end)!;
-      this.end = DateUtils.calcTime(bt[0], this.src);
+      const bt: Date[] | undefined = this.getBreakTime(this.end)!;
+      if (bt !== undefined) {
+        this.end = DateUtils.calcTime(bt[0], this.src);
+      }
     }
 
-    const hours = this.calcWorkingHours();
+    const hours: number = this.calcWorkingHours();
 
     if (this.isWorkday) {
       this.workingHours = hours;
     } else {
       this.holidayWorkingHours = hours;
     }
-  };
+  }
 
   private isBreakTime(at: Date): boolean {
-    const list = BreakTimeListModule.breakTimeList;
-    return list
-      .filter(b => b !== null)
-      .map(b => b!)
-      .some(
-        b =>
-          DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
-          DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
-      );
+    const list: Date[][] = BreakTimeListModule.shadowList;
+    return list.some(
+      b =>
+        DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
+        DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
+    );
   }
 
   private getBreakTime(at: Date): Date[] | undefined {
-    const list = BreakTimeListModule.breakTimeList;
-    return list
-      .filter(b => b !== null)
-      .map(b => b!)
-      .find(
-        b =>
-          DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
-          DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
-      );
+    const list: Date[][] = BreakTimeListModule.shadowList;
+    return list.find(
+      b =>
+        DateUtils.getTimeValue(b[0]) <= DateUtils.getTimeValue(at) &&
+        DateUtils.getTimeValue(b[1]) >= DateUtils.getTimeValue(at)
+    );
   }
 
   private calcWorkingHours(): number {
-    const hours =
+    const hours: number =
       (this.end!.getTime() - this.start!.getTime()) / 60 / 60 / 1000;
-    const list = BreakTimeListModule.shadowList;
-    const totalBreakTime = list
+    const list: Date[][] = BreakTimeListModule.shadowList;
+    const totalBreakTime: number = list
       .map(b => [
-        DateUtils.calcTime(b![0], this.src),
-        DateUtils.calcTime(b![1], this.src)
+        DateUtils.calcTime(b[0], this.src),
+        DateUtils.calcTime(b[1], this.src)
       ])
       .filter(
         b =>
-          this.start!.getTime()! < b![0].getTime() &&
+          this.start!.getTime()! < b[0].getTime() &&
           b![1].getTime() < this.end!.getTime()
       )
-      .map(b => (b![1].getTime() - b![0].getTime()) / 60 / 60 / 1000)
+      .map(b => (b[1].getTime() - b[0].getTime()) / 60 / 60 / 1000)
       .reduce((previous: number, current: number) => previous + current, 0);
     return hours - totalBreakTime;
   }
