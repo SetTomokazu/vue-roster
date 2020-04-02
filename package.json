@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@holiday-jp/holiday_jp": "^2.2.3",
+    "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
+    "file-saver": "^2.0.2",
     "moment": "^2.24.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
@@ -25,6 +27,7 @@
     "xlsx": "^0.15.6"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "^25.1.4",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",

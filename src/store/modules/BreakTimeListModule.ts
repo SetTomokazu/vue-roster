@@ -29,7 +29,6 @@ class BreakTimeList extends VuexModule implements IBreakTimeList {
 
   @Mutation
   updateBreakTimeAt(arg: { index: number; value: Date[] | null }): void {
-    console.log(`updateBreakTimeAt ${arg.index}: ${arg.value}`);
     this.breakTimeList[arg.index] =
       arg.value === null ? null : DateUtils.removeUnderSecondOfRange(arg.value);
   }
