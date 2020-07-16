@@ -7,7 +7,7 @@
       class="BreakTime"
       range-separator="To"
       :picker-options="{
-        selectableRange: '00:00 - 23:59'
+        selectableRange: '00:00 - 23:59',
       }"
       format="HH:mm"
       start-placeholder="Start time"
@@ -19,19 +19,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from "vue-property-decorator";
+import { Component, Vue, Emit } from 'vue-property-decorator'
 
 @Component({})
 export default class BreakTime extends Vue {
-  private breakTime: Date[] | null = null;
+  private breakTime: Date[] | null = null
 
   public update(value: Date[] | null): void {
-    this.breakTime = value;
+    this.breakTime = value
   }
 
-  @Emit("change")
+  @Emit('change')
   private change(value: Date[] | null) {
-    return value;
+    return value
   }
 }
 </script>

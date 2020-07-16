@@ -23,12 +23,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import RegularTime from "./RegularTime.vue";
+import { Component, Vue } from 'vue-property-decorator'
+import RegularTime from './RegularTime.vue'
 
 @Component({ components: { RegularTime } })
 export default class RegularTimeContainer extends Vue {
-  private input = "";
+  private input = ''
 }
 </script>
 

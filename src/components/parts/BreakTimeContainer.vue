@@ -23,43 +23,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import BreakTime from "./BreakTime.vue";
-import { BreakTimeListModule } from "../../store/modules/BreakTimeListModule";
+import { Component, Vue } from 'vue-property-decorator'
+import BreakTime from './BreakTime.vue'
+import { BreakTimeListModule } from '../../store/modules/BreakTimeListModule'
 
 @Component({ components: { BreakTime } })
 export default class BreakTimeContainer extends Vue {
   private get refs(): any {
-    return this.$refs;
+    return this.$refs
   }
   private mounted() {
     this.$store.subscribe((mutation, state) => {
-      if (mutation.type === "updateBreakTimeAt") {
-        this.refresh();
+      if (mutation.type === 'updateBreakTimeAt') {
+        this.refresh()
       }
-    });
-    this.refresh();
+    })
+    this.refresh()
   }
   private refresh() {
-    this.refs.breakTime1.update(BreakTimeListModule.breakTimeList[0]);
-    this.refs.breakTime2.update(BreakTimeListModule.breakTimeList[1]);
-    this.refs.breakTime3.update(BreakTimeListModule.breakTimeList[2]);
-    this.refs.breakTime4.update(BreakTimeListModule.breakTimeList[3]);
+    this.refs.breakTime1.update(BreakTimeListModule.breakTimeList[0])
+    this.refs.breakTime2.update(BreakTimeListModule.breakTimeList[1])
+    this.refs.breakTime3.update(BreakTimeListModule.breakTimeList[2])
+    this.refs.breakTime4.update(BreakTimeListModule.breakTimeList[3])
   }
   private change1(value: Date[] | null) {
-    this.change(0, value);
+    this.change(0, value)
   }
   private change2(value: Date[] | null) {
-    this.change(1, value);
+    this.change(1, value)
   }
   private change3(value: Date[] | null) {
-    this.change(2, value);
+    this.change(2, value)
   }
   private change4(value: Date[] | null) {
-    this.change(3, value);
+    this.change(3, value)
   }
   private change(index: number, value: Date[] | null) {
-    BreakTimeListModule.updateBreakTimeAt({ index, value });
+    BreakTimeListModule.updateBreakTimeAt({ index, value })
   }
 }
 </script>

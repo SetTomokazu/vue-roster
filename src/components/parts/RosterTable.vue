@@ -28,7 +28,7 @@
             v-model="scope.row.attendanceTime"
             arrow-control
             :picker-options="{
-              selectableRange: '00:00:00 - 23:59:00'
+              selectableRange: '00:00:00 - 23:59:00',
             }"
             format="HH:mm"
             placeholder=""
@@ -48,7 +48,7 @@
             v-model="scope.row.leavingTime"
             arrow-control
             :picker-options="{
-              selectableRange: '00:00:00 - 23:59:00'
+              selectableRange: '00:00:00 - 23:59:00',
             }"
             format="HH:mm"
             placeholder=""
@@ -132,81 +132,81 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import RosterRecord from "@/components/lib/RosterRecord";
-import DateUtils from "../lib/DateUtils";
-import { TableColumn } from "element-ui/types/table-column";
-import { RosterRecordListModule } from "@/store/modules/RosterRecordListModule";
-import moment from "moment";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import RosterRecord from '@/components/lib/RosterRecord'
+import DateUtils from '../lib/DateUtils'
+import { TableColumn } from 'element-ui/types/table-column'
+import { RosterRecordListModule } from '@/store/modules/RosterRecordListModule'
+import moment from 'moment'
 
 @Component({})
 export default class RosterTable extends Vue {
-  private tableData: RosterRecord[] = [];
+  private tableData: RosterRecord[] = []
   public getWeek(row: RosterRecord, column: string) {
-    return DateUtils.getWeek(row.day);
+    return DateUtils.getWeek(row.day)
   }
 
   private mounted() {
     this.$store.subscribe((mutation, state) => {
-      if (mutation.type === "init") {
-        this.tableData = RosterRecordListModule.list;
+      if (mutation.type === 'init') {
+        this.tableData = RosterRecordListModule.list
       }
-    });
+    })
   }
 
-  @Watch("RosterRecordListModule.list")
+  @Watch('RosterRecordListModule.list')
   private onChangeRosterRecordListModule(
     newList: RosterRecord[],
     oldList: RosterRecord[]
   ) {
-    this.tableData = RosterRecordListModule.list;
+    this.tableData = RosterRecordListModule.list
   }
 
   public tableRowClassName(obj: { row: RosterRecord; rowIndex: number }) {
     if (obj.row.day === 0) {
-      return "sunday-row";
+      return 'sunday-row'
     } else if (obj.row.day === 6) {
-      return "saturday-row";
+      return 'saturday-row'
     } else if (obj.row.isHoliday) {
-      return "holiday-row";
+      return 'holiday-row'
     } else {
-      return "";
+      return ''
     }
   }
 
   public updateStartTime(index: number, value: Date | null) {
-    RosterRecordListModule.updateStartAt({ index, value });
+    RosterRecordListModule.updateStartAt({ index, value })
   }
   public updateEndTime(index: number, value: Date) {
-    RosterRecordListModule.updateEndAt({ index, value });
+    RosterRecordListModule.updateEndAt({ index, value })
   }
   getSummaries(params: {
-    columns: TableColumn[];
-    data: RosterRecord[];
+    columns: TableColumn[]
+    data: RosterRecord[]
   }): string[] {
     const reducer = (accumulator: number, currentValue: number) =>
-      accumulator + currentValue;
+      accumulator + currentValue
     const sums: string[] = params.columns.map(
       (column: TableColumn, index: number) => {
         switch (column.property) {
-          case "workingHours":
-            return `${params.data.map(d => d.workingHours).reduce(reducer)}`;
-          case "overtimeHours":
-            return `${params.data.map(d => d.overtimeHours).reduce(reducer)}`;
-          case "holidayWorkingHours":
+          case 'workingHours':
+            return `${params.data.map(d => d.workingHours).reduce(reducer)}`
+          case 'overtimeHours':
+            return `${params.data.map(d => d.overtimeHours).reduce(reducer)}`
+          case 'holidayWorkingHours':
             return `${params.data
               .map(d => d.holidayWorkingHours)
-              .reduce(reducer)}`;
-          case "holidayOvertimeHours":
+              .reduce(reducer)}`
+          case 'holidayOvertimeHours':
             return `${params.data
               .map(d => d.holidayOvertimeHours)
-              .reduce(reducer)}`;
+              .reduce(reducer)}`
           default:
-            return "";
+            return ''
         }
       }
-    );
-    return sums;
+    )
+    return sums
   }
   public numberFormatter(
     row: RosterRecord,
@@ -214,7 +214,7 @@ export default class RosterTable extends Vue {
     cellValue: number,
     index: number
   ): number {
-    return Math.round(cellValue * 100) / 100;
+    return Math.round(cellValue * 100) / 100
   }
   public dateFormatter(
     row: RosterRecord,
@@ -222,7 +222,7 @@ export default class RosterTable extends Vue {
     cellValue: Date | null,
     index: number
   ): string {
-    return cellValue === null ? "" : moment(cellValue).format("HH:mm");
+    return cellValue === null ? '' : moment(cellValue).format('HH:mm')
   }
 }
 </script>

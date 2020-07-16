@@ -11,16 +11,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import RegularTimeContainer from "./RegularTimeContainer.vue";
-import BreakTimeContainer from "./BreakTimeContainer.vue";
+import { Component, Vue } from 'vue-property-decorator'
+import RegularTimeContainer from './RegularTimeContainer.vue'
+import BreakTimeContainer from './BreakTimeContainer.vue'
 
 @Component({ components: { RegularTimeContainer, BreakTimeContainer } })
 export default class TimeSetting extends Vue {
   private regularTime: Date[] = [
     new Date(2020, 1, 1, 9, 0, 0),
-    new Date(2020, 1, 1, 18, 0, 0)
-  ];
+    new Date(2020, 1, 1, 18, 0, 0),
+  ]
 }
 </script>
 

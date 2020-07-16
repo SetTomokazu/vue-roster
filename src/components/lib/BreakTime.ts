@@ -1,6 +1,6 @@
 export default class BreakTime {
-  public period: Date[];
+  public period: Date[]
   constructor(src: Date[]) {
-    this.period = src;
+    this.period = src
   }
 }

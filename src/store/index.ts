@@ -1,15 +1,15 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { IRegularTime } from "./modules/RegularTimeModule";
-import { IRosterRecordList } from "./modules/RosterRecordListModule";
-import { IBreakTimeList } from "./modules/BreakTimeListModule";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { IRegularTime } from './modules/RegularTimeModule'
+import { IRosterRecordList } from './modules/RosterRecordListModule'
+import { IBreakTimeList } from './modules/BreakTimeListModule'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export interface IRootState {
-  breakTimeList: IBreakTimeList;
-  regularTime: IRegularTime;
-  rosterRecordList: IRosterRecordList;
+  breakTimeList: IBreakTimeList
+  regularTime: IRegularTime
+  rosterRecordList: IRosterRecordList
 }
 
-export default new Vuex.Store<IRootState>({});
+export default new Vuex.Store<IRootState>({})
