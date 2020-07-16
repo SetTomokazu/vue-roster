@@ -16,7 +16,7 @@ import { RosterRecordListModule } from "../store/modules/RosterRecordListModule"
 export default class Roster extends Vue {
   private targetMonth: Date = new Date();
   private workRecord: [] = [];
-  private get refs(): any {
+  private get refs(): unknown {
     return this.$refs;
   }
 
