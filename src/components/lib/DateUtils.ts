@@ -7,6 +7,7 @@ export default class DateUtils {
 
   public static getLastDay(src: Date): Date {
     const nextMonth: Date = new Date(src)
+    nextMonth.setDate(1)
     nextMonth.setMonth(src.getMonth() + 1)
     nextMonth.setDate(0)
     return nextMonth
